@@ -1,0 +1,52 @@
+PODS:
+  - AMap3DMap-NO-IDFA (7.1.0):
+    - AMapFoundation-NO-IDFA (~> 1.5)
+  - AMapFoundation-NO-IDFA (1.6.1)
+  - AMapLocation-NO-IDFA (2.6.4):
+    - AMapFoundation-NO-IDFA (~> 1.6.1)
+  - AMapNavi-NO-IDFA (7.1.0):
+    - AMap3DMap-NO-IDFA (~> 7.0)
+    - AMapFoundation-NO-IDFA (~> 1.5)
+  - AMapSearch-NO-IDFA (7.1.0):
+    - AMapFoundation-NO-IDFA (~> 1.4)
+  - Flutter (1.0.0)
+  - MJRefresh (3.3.1)
+  - works_amap_map (0.0.1):
+    - AMapLocation-NO-IDFA
+    - AMapNavi-NO-IDFA
+    - AMapSearch-NO-IDFA
+    - Flutter
+    - MJRefresh
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - works_amap_map (from `.symlinks/plugins/works_amap_map/ios`)
+
+SPEC REPOS:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - AMap3DMap-NO-IDFA
+    - AMapFoundation-NO-IDFA
+    - AMapLocation-NO-IDFA
+    - AMapNavi-NO-IDFA
+    - AMapSearch-NO-IDFA
+    - MJRefresh
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  works_amap_map:
+    :path: ".symlinks/plugins/works_amap_map/ios"
+
+SPEC CHECKSUMS:
+  AMap3DMap-NO-IDFA: 93a9dfb7571d33156668a4428141c6aaa80edd80
+  AMapFoundation-NO-IDFA: f2e353c14d755cab33601dc298be22c29c01df99
+  AMapLocation-NO-IDFA: 9e1c2c0f5df43a77caf2f97bc599f4eea3cc6856
+  AMapNavi-NO-IDFA: dd96a8433c6834e1c12682cdbfca71452792c518
+  AMapSearch-NO-IDFA: 439cf79b729210a33431cfa65995b59184d0f388
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  works_amap_map: d228083f930d464b9fade49a62e4ebfd60ecfb39
+
+PODFILE CHECKSUM: 4542948154855582501a4a6963eb1f7d0bb8b6ca
+
+COCOAPODS: 1.8.4

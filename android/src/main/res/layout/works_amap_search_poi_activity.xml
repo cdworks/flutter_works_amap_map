@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+    <LinearLayout android:id="@+id/title_bar"
+                  android:layout_width="match_parent"
+                  android:layout_height="44dp"
+                  android:background="#ffffff"
+    >
+        <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="46dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/title_back"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+        />
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_marginEnd="51dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="位置搜索"
+        />
+
+    </LinearLayout>
+
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:background="#e0e2e5"
+
+    />
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#e5e5e5"
+    />
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@android:color/white"
+    >
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/refreshLayout"
+        >
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_view"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+            />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <com.works.works_amap_map.ActivityIndicatorView
+                android:id="@+id/indicator"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:aiv_color="#A2A3B0"
+                app:aiv_strokeWidth="2.5dp"
+                android:layout_gravity="center"
+        />
+    </FrameLayout>
+
+
+
+</LinearLayout>

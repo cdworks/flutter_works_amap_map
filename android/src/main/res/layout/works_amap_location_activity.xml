@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout android:id="@+id/title_bar"
+                  android:layout_width="match_parent"
+                  android:background="@android:color/white"
+                  android:layout_height="44dp">
+        <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="46dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/title_back"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+        />
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="49dp"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="获取位置"
+        />
+
+        <ImageButton
+                android:id="@+id/search_button"
+                android:layout_width="30dp"
+                android:layout_height="18dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sousuo"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+        />
+
+        <Button
+                android:id="@+id/ok_button"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp"
+                android:textSize="16dp"
+                android:background="@null"
+                android:textColor="@android:color/black"
+                android:text="确定"
+        />
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+    >
+        <com.amap.api.maps.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </com.amap.api.maps.MapView>
+        <ImageButton
+                android:id="@+id/go_my"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/myposition1"
+                android:scaleType="fitXY"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="#33000000"
+        />
+        <FrameLayout
+                android:id="@+id/biezhen"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_marginBottom="39dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/biezhen3"
+            />
+        </FrameLayout>
+
+        <TextView android:id="@+id/loading_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:text="正在获取位置..."
+                  android:textColor="@android:color/black"
+
+        />
+
+    </RelativeLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="#e5e5e5"
+    />
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="7"
+    >
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+        />
+        <com.works.works_amap_map.ActivityIndicatorView
+                android:id="@+id/indicator"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:aiv_color="#A2A3B0"
+                app:aiv_strokeWidth="2.5dp"
+                android:layout_gravity="center"
+        />
+    </FrameLayout>
+
+
+
+</LinearLayout>
