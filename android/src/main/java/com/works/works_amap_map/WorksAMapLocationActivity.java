@@ -1,5 +1,6 @@
 package com.works.works_amap_map;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -29,6 +30,8 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.core.PoiItem;
+import com.tsclown.permission.PermissionCallback;
+import com.tsclown.permission.PermissionManager;
 
 import java.util.ArrayList;
 
@@ -166,51 +169,74 @@ public class WorksAMapLocationActivity extends FragmentActivity implements View.
     private void initLocation()
     {
         //初始化定位
-        mLocationClient = new AMapLocationClient(getApplicationContext());
+
+        PermissionManager permissionManager = new PermissionManager.Builder(this)
+                .setPermissionArray(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION})
+                .setPermissionNameCombine("定位")
+                .setDialogTitle("提示")
+//                        .setPermissionNotGrantDialog()
+//                        .setPermissionRationaleDialog()
+                .setPermissionCallback(new PermissionCallback() {
+                    @Override
+                    public void onPermissionResult(boolean granted) {
+                        Log.e("PermissionCallback", "granted" + granted);
+                        if(granted) {
+                            mLocationClient = new AMapLocationClient(getApplicationContext());
+
+                            //异步获取定位结果
+                            AMapLocationListener mAMapLocationListener = new AMapLocationListener() {
+                                @Override
+                                public void onLocationChanged(AMapLocation amapLocation) {
+                                    if (amapLocation != null) {
+                                        int errorCode = amapLocation.getErrorCode();
+                                        if (errorCode == 0) {
+
+                                            if(amapLocation.getLatitude() > 0 && amapLocation.getLatitude() > 0)
+                                            {
+                                                firstLocation = amapLocation;
+                                                Log.d("amap","first location:" + "{" + amapLocation.getLatitude() + "," + amapLocation.getLongitude() + "}");
+                                                mLocationClient.stopLocation();
+                                                loadingTextView.setVisibility(View.INVISIBLE);
+                                                setMyLocation();
+                                            }
+                                            else {
+                                                Log.d("amap", "suc location:" + "{" + amapLocation.getLatitude() + "," + amapLocation.getLongitude() + "}");
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            Log.d("amap","location Error, ErrCode:"
+                                                    + amapLocation.getErrorCode() + ", errInfo:"
+                                                    + amapLocation.getErrorInfo());
+                                        }
+                                    }
+                                }
+                            };
+
+                            //设置定位回调监听
+                            mLocationClient.setLocationListener(mAMapLocationListener);
 
 
-        //异步获取定位结果
-        AMapLocationListener mAMapLocationListener = new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation amapLocation) {
-                if (amapLocation != null) {
-                    int errorCode = amapLocation.getErrorCode();
-                    if (errorCode == 0) {
+                            AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
+                            mLocationOption.setNeedAddress(true);
+                            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+                            mLocationClient.setLocationOption(mLocationOption);
 
-                        if(amapLocation.getLatitude() > 0 && amapLocation.getLatitude() > 0)
-                        {
-                            firstLocation = amapLocation;
-                            Log.d("amap","first location:" + "{" + amapLocation.getLatitude() + "," + amapLocation.getLongitude() + "}");
-                            mLocationClient.stopLocation();
-                            loadingTextView.setVisibility(View.INVISIBLE);
-                            setMyLocation();
+                            //启动定位
+                            mLocationClient.startLocation();
                         }
-                        else {
-                            Log.d("amap", "suc location:" + "{" + amapLocation.getLatitude() + "," + amapLocation.getLongitude() + "}");
-                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationale() {
 
                     }
-                    else
-                    {
-                        Log.d("amap","location Error, ErrCode:"
-                                + amapLocation.getErrorCode() + ", errInfo:"
-                                + amapLocation.getErrorInfo());
-                    }
-                }
-            }
-        };
+                }).create();
 
-        //设置定位回调监听
-        mLocationClient.setLocationListener(mAMapLocationListener);
+        permissionManager.request();
 
 
-        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationClient.setLocationOption(mLocationOption);
-
-        //启动定位
-        mLocationClient.startLocation();
 
 
     }
@@ -489,4 +515,10 @@ public class WorksAMapLocationActivity extends FragmentActivity implements View.
         }
     }
 
+//    @Override
+//    public void finish() {
+//        super.finish();
+//        //注释掉activity本身的过渡动画
+//        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//    }
 }

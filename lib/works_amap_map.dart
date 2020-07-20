@@ -16,6 +16,27 @@ class WorksAmapMap {
    titleColor});
   }
 
+  //////省/直辖市
+  //@property (nonatomic, copy) NSString *province;
+  //
+  /////市
+  //@property (nonatomic, copy) NSString *city;
+  //
+  /////区
+  //@property (nonatomic, copy) NSString *district;
+
+  //info.put("code", 0);
+  //        info.put("msg", "");
+  //         info.put("lat", lat);
+  //           info.put("lon", lon);
+  //            info.put("district");
+  //    info.put("province",);
+  //       info.put("city",);
+  //   info.put("address", address);
+  static Future<Map> startLocationOnce()  async{
+    return await _channel.invokeMethod('startLocationOnce');
+  }
+
   static void startPotMapMap(int barColor ,int titleColor,Map locationInfo) {
 
 //    location

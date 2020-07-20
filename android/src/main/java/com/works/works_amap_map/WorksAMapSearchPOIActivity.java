@@ -286,4 +286,11 @@ public class WorksAMapSearchPOIActivity extends FragmentActivity {
             return  poiList.size();
         }
     }
+
+//    @Override
+//    public void finish() {
+//        super.finish();
+//        //注释掉activity本身的过渡动画
+//        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//    }
 }

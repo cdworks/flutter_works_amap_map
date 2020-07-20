@@ -5,6 +5,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        mavenCentral()
+        maven { url "https://raw.githubusercontent.com/TsClown/permissionlib/master"}
+        maven { url "https://jitpack.io" }
     }
 
     dependencies {
@@ -16,6 +23,13 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin'}
+        mavenCentral()
+        maven { url "https://raw.githubusercontent.com/TsClown/permissionlib/master"}
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -44,5 +58,11 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation("com.tsclown:permission:1.0.1"){
+        exclude group: 'rxandroid'
+        exclude group: 'rxjava'
+        exclude group: 'rxpermissions'
+        exclude group: 'fragment'
+    }
 
 }

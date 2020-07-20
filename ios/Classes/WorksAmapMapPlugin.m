@@ -2,6 +2,7 @@
 #import "WorksAMapLocationViewController.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "WorksAMapViewController.h"
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface WorksAmapMapPlugin()
 
@@ -10,9 +11,24 @@
 
 @property(nonatomic,weak)FlutterViewController* controller;
 
+@property(nonatomic,strong)AMapLocationManager* amapLocation;
+
 @end
 
 @implementation WorksAmapMapPlugin
+
+
+-(AMapLocationManager*)amapLocation
+{
+    if(!_amapLocation)
+    {
+        _amapLocation = [[AMapLocationManager alloc] init];
+        [_amapLocation setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    }
+    
+    return _amapLocation;
+}
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"works_amap_map"
@@ -125,7 +141,41 @@
       result(nil);
 
       
-  } else {
+  }
+  else if([@"startLocationOnce" isEqualToString:call.method])
+  {
+//      __weak typeof(self) weakSelf = self;
+      [self.amapLocation requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+//          if (!weakSelf) {
+//              result(@{@"code":[NSNumber numberWithInteger:code],@"msg":msg});
+//              return;
+//          }
+          if (!error && location) {
+              NSString* address = @"";
+              if(regeocode && regeocode.formattedAddress.length)
+              {
+                  address = regeocode.formattedAddress;
+              }
+              result(@{@"code":[NSNumber numberWithInteger:0],
+                       @"msg":@"",
+                       @"lat":[NSNumber numberWithDouble:location.coordinate.latitude],
+                       @"lon":[NSNumber numberWithDouble:location.coordinate.longitude],
+                       @"district":regeocode.district ? regeocode.district:@"",
+                       @"province":regeocode.province ? regeocode.province:@"",
+                       @"city":regeocode.city ? regeocode.city:@"",
+                       
+                       @"address":address
+              });
+          }
+          else
+          {
+              NSInteger code = error ? error.code : -2;
+              NSString* msg = error ? error.localizedDescription : @"获取定位失败!";
+              result(@{@"code":[NSNumber numberWithInteger:code],@"msg":msg});
+          }
+      }];
+  }
+  else {
     result(FlutterMethodNotImplemented);
 //      _methodCall = nil;
 //      _result = nil;
